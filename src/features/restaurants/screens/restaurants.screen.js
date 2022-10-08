@@ -1,13 +1,9 @@
 import React, {useState} from 'react';
 import {Searchbar} from 'react-native-paper';
 import RetaurantInfoCard from '../components/restaurants-info-card.component';
-import {
-  SafeArea,
-  SearchContainer,
-  RestaurantListContainer,
-} from './restaurants.screen.styles';
-import {FlatList} from 'react-native';
+import {SearchContainer, RestaurantList} from './restaurants.screen.styles';
 import {Spacer} from '../../../components/spacer/spacer.component';
+import {SafeArea} from '../../../components/utility/safe-area.component';
 
 const RestaurantsScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -24,7 +20,7 @@ const RestaurantsScreen = () => {
         />
       </SearchContainer>
 
-      <FlatList
+      <RestaurantList
         data={[
           {name: 1},
           {name: 2},
@@ -42,7 +38,6 @@ const RestaurantsScreen = () => {
           </>
         )}
         keyExtractor={item => item.name}
-        contentContainerStyle={{padding: 16}}
       />
     </SafeArea>
   );
