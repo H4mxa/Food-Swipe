@@ -1,12 +1,12 @@
 import React from 'react';
 import type {Node} from 'react';
 import {View, Text} from 'react-native';
-import {ThemeProvider} from 'styled-components/native';
 import {theme} from './src/infrastructure/theme';
+import {ThemeProvider} from 'styled-components/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {SafeArea} from './src/components/utility/safe-area.component';
-
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import RestaurantsScreen from './src/features/restaurants/screens/restaurants.screen';
 
 const Tab = createBottomTabNavigator();
@@ -36,10 +36,26 @@ const App: () => Node = () => {
     <>
       <ThemeProvider theme={theme}>
         <NavigationContainer>
-          <Tab.Navigator>
+          <Tab.Navigator
+            screenOptions={({route}) => ({
+              tabBarIcon: ({color, size}) => {
+                let iconName;
+                if (route.name === 'Restaurants') {
+                  iconName = 'md-restaurant';
+                } else if (route.name === 'Map') {
+                  iconName = 'md-map';
+                } else if (route.name === 'Settings') {
+                  iconName = 'md-settings';
+                }
+                // You can return any component that you like here!
+                return <Ionicons name={iconName} size={size} color={color} />;
+              },
+              tabBarActiveTintColor: 'tomato',
+              tabBarInactiveTintColor: 'gray',
+            })}>
             <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
-            <Tab.Screen name="MapScreen" component={MapScreen} />
-            <Tab.Screen name="SettingsScreen" component={SettingsScreen} />
+            <Tab.Screen name="Map" component={MapScreen} />
+            <Tab.Screen name="Settings" component={SettingsScreen} />
           </Tab.Navigator>
         </NavigationContainer>
       </ThemeProvider>
